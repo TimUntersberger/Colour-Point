@@ -1,0 +1,2 @@
+class WorkdaysController < ApplicationController
+end

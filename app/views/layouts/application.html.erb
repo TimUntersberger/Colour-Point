@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ColourAndPoint</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <%= link_to "Colour&Point", root_path, {:class=>"navbar-brand"} %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav mr-auto" id="pages">
+          <li class="nav-item <%= 'active' if params[:controller] == 'categories' %>">
+            <%= link_to "Waren", categories_path, {:class=>"nav-link"} %>
+          </li>
+          <li class="nav-item <%= 'active' if params[:controller] == 'workdays' %>">
+            <%= link_to "Arbeitszeit", workdays_path, {:class=>"nav-link"} %>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <%if user_signed_in? %>
+          <li class="dropdown">
+            <span class="navbar-text no-margin"><%= current_user.email %></span>
+            <button class="dropdown-toggle btn-user pointer" data-toggle="dropdown">
+              <%= image_tag 'default.jpg', class: "rounded profile-pic" %>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right dropdown-margin-top navbar-dark bg-dark">
+              <li class="nav-item text-center">
+                <%= link_to destroy_user_session_path, {:method=>"delete", :class=>"nav-link"} do %>
+                  <i class="fa fa-sign-out"></i><span>Ausloggen</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <%else%>
+          <li class="nav-item">
+            <%= link_to new_user_registration_path, {:class=>"nav-link"} do %>
+              <i class="fa fa-user-plus"></i><span>Anmelden</span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, {:class=>"nav-link"} do %>
+              <i class="fa fa-sign-in"></i><span>Einloggen</span>
+            <% end %>
+          </li>
+          <%end%>
+        </ul>
+      </div>
+    </nav>
+    <% if notice || alert%>
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <% if notice %>
+          <%= notice %>
+        <% end %>
+        <% if alert %>
+          <%= alert %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+<% Product.select{|p| p.minquantity > p.quantity}.each do |product| %>
+  <tr class="product bg-danger">
+    <td name="name" contenteditable="false"><%= product.name %></td>
+    <td name="format" contenteditable="false"><%= product.format %></td>
+    <td name="minquantity" contenteditable="false"><%= product.minquantity %></td>
+    <td name="quantity" contenteditable="false"><%= product.quantity %></td>
+  </tr>
+<% end %>

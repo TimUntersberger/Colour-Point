@@ -1,0 +1,118 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
+// vendor/assets/javascripts directory can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file. JavaScript code in this file should be added after the last require_* statement.
+//
+// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+//= require jquery
+//= require popper
+//= require bootstrap
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .
+function deleteProduct(icon){
+  $.ajax({
+    method: "delete",
+    url: ("/products/" + icon.parentNode.parentNode.id)
+  }).done(function(){
+     refreshCat();
+  });
+}
+function refreshTooLowBody() {
+  $.ajax({
+    url: "/products"
+  });
+}
+function addQuantity(icon){
+  let id = icon.parentNode.parentNode.id;
+  let currentValue = parseInt(icon.parentNode.innerText);
+  let valueToAdd = parseInt($("#numberField" + id).val());
+  $.ajax({
+    method: "put",
+    url: ("/products/" + id),
+    data: {
+      new_value: (currentValue + valueToAdd),
+      attribute: "quantity"
+    }
+  }).done(function(){
+     refreshCat();
+  });
+}
+function removeQuantity(icon){
+  let id = icon.parentNode.parentNode.id;
+  let currentValue = parseInt(icon.parentNode.innerText);
+  let valueToAdd = -parseInt($("#numberField" + id).val());
+  $.ajax({
+    method: "put",
+    url: ("/products/" + id),
+    data: {
+      new_value: (currentValue + valueToAdd),
+      attribute: "quantity"
+    }
+  }).done(function(){
+     $("[name='category'].active")[0].click();
+  });
+}
+function changeCatName(button){
+  $.ajax({
+    method: 'put',
+    url: button.parentNode.action,
+    data: {
+      new_value: $("#catName").val()
+    }
+  }).done(function(){
+    $("[name='category'].active").text($("#catName").val());
+  });
+}
+function refreshCat() {
+  $("[name='category'].active")[0].click()
+}
+$(document).on('turbolinks:load', function() {
+  if($("#categories").length != 0){
+    var categories = $("#categories").children();
+    categories.click(function (){
+      for(let i = 0; i < categories.length; i++){
+        let a = categories[i].children[0];
+        if(a.classList.length == 2)
+          a.className = a.classList[0];
+      }
+      let a = this.children[0];
+      a.className = a.className + " active";
+    });
+    categories[0].click();
+    categories[0].children[0].click();
+  }
+  if($("#tooLowBody").length != 0){
+    refreshTooLowBody();
+  }
+  $(document).on("focusout","tr.product td.editable",function(){
+    let tr = this.parentNode;
+    console.log("Product_id: " + tr.id + " Attribute: " + this.getAttribute("name"));
+    $.ajax({
+      method: "put",
+      url: ("/products/" + tr.id),
+      data: {
+        attribute: this.getAttribute("name"),
+        new_value: this.innerText
+      }
+    }).done(function(){
+      let tds = tr.children;
+      if(tds[2].innerText > tds[3].innerText){
+        if(!tr.className.includes("bg-danger")){
+          tr.className += " bg-danger";
+        }
+      }
+      else{
+        if(tr.className.includes("bg-danger")){
+          tr.className = tr.className.replace(" bg-danger","");
+        }
+      }
+    });
+  });
+});

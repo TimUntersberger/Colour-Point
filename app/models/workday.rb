@@ -1,0 +1,2 @@
+class Workday < ApplicationRecord
+end

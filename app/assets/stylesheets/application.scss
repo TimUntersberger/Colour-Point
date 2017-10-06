@@ -1,0 +1,94 @@
+@import 'bootstrap';
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+.container-margin{
+ padding: 20px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.numberField{
+  height: 70%;
+  width: 50px;
+  text-align: center;
+  margin-right: 5px;
+}
+.btn-product{
+  margin-right: 5px;
+  top: 50%;
+  transform: translatey(25%);
+}
+.btn-product:hover{
+  cursor:pointer;
+}
+.input-product{
+  width: 300px !important;
+  float:right;
+  margin-right: 17px;
+  margin-bottom: 20px;
+}
+.input-product-no-margin{
+  margin-right: 80px;
+}
+.nav-item{
+ & span{
+   margin-left: 5px;
+ }
+ & img{
+   margin-left: 5px;
+ }
+}
+.fa-caret-down:hover{
+ cursor: pointer
+}
+.no-margin{
+ margin: 0 !important;
+}
+.pointer{
+ cursor: pointer;
+}
+.dropdown-toggle::after{
+ color: grey;
+}
+.form-group, .form-check{
+ margin-left: auto;
+ margin-right: auto;
+ width: 300px;
+}
+.form-control, .btn{
+ width: 100%;
+}
+.form-group{
+ text-align:left;
+}
+.links{
+ font-size: 12px;
+}
+.text-align-center{
+ text-align:center;
+}
+.profile-pic{
+  width: 40px;
+  height: 40px;
+}
+.navbar-text{
+  margin-right: 20px;
+}
+.btn-user{
+  background: none;
+  border: none;
+  padding: 0;
+}
+.btn-user:hover{
+  cursor: pointer;
+}
+.btn-user:focus{
+  outline: 0;
+}
+.dropdown-margin-top{
+  margin-top: 8px;
+}

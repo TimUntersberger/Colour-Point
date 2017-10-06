@@ -1,0 +1,3 @@
+<% User.select{|u| u.signed_in}.each do |user|%>
+  <li>yes</li>
+<% end %>

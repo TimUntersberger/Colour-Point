@@ -1,0 +1,15 @@
+<div class="container-fluid container-margin">
+  <nav class="nav nav-tabs" id="categories">
+    <% @categories.each do |categorie| %>
+      <li class="nav-item">
+        <%= link_to categorie.name, categorie, remote:true, name: "category", class: "nav-link"%>
+      </li>
+    <% end %>
+    <li class="nav-item">
+      <%= link_to "+", categories_path, method:"post", class: "nav-link", id:"addCategory" %>
+    </li>
+  </nav>
+  <div class="container container-margin" id="currentCategory">
+
+  </div>
+</div>
