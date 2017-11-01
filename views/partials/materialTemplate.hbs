@@ -1,0 +1,15 @@
+<tr class="material template">
+    <td>
+        <pre class="materialName" ondblclick="toggleContentEditable(event)" onblur="onBlurMaterial(event)" onkeydown="onMaterialNameWillChange(event)"></pre>
+    </td>
+    <td>
+        <pre class="materialFormat" ondblclick="toggleContentEditable(event)" onblur="onBlurMaterial(event)" onkeydown="onMaterialFormatWillChange(event)"></pre>
+    </td>
+    <td class="min-quantity materialMinQuantity" ondblclick="toggleContentEditable(event)" onblur="onBlurMaterial(event)" onkeydown="onMaterialMinQuantityWillChange(event)"></td>
+    <td class="materialQuantity">
+        <span class="quantityValue"></span>
+        <i class="trash large icon removeMaterial" onclick="onDeleteMaterial(event)"></i>
+        <i class="minus red circle large icon subtractQuantity materialMinus" onclick="changeActiveMaterial(event)"></i>
+        <i class="plus green circle large icon addQuantity materialPlus" onclick="changeActiveMaterial(event)"></i>
+    </td>
+</tr>
