@@ -1,0 +1,34 @@
+{{> settingsModal}}
+{{> deleteConfirm}}
+{{> addQuantityPopup }}
+{{> subtractQuantityPopup }}
+<div class="ui vertical menu categoriesManager large">
+    <div class="item">
+        <div class="header">
+            Kategorien
+            <i class="plus icon addCategory" style="float:right" onClick="onAddCategory(event)"></i>
+        </div>
+        <div class="menu" id="categories">
+            {{> categoryTemplate }}
+        </div>
+    </div>
+</div>
+<div class="ui container">
+    <table class="ui table very basic celled ">
+        <thead>
+        <tr>
+            <th class="materialName">Name</th>
+            <th>Format</th>
+            <th>Mindest Menge</th>
+            <th>Menge
+                <i class="addMaterial plus icon" onClick="onAddMaterial(event)"></i>
+            </th>
+        </tr>
+        </thead>
+        <tbody id="materials">
+        {{> materialTemplate }}
+        </tbody>
+    </table>
+</div>
+<script src="/js/repository.js"></script>
+<link rel="stylesheet" href="/css/repository.css">

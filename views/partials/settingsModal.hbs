@@ -1,0 +1,32 @@
+<div class="ui modal mini" id="settingsModal">
+    <i class="close icon"></i>
+    <div class="header">
+        Settings
+    </div>
+    <div class="content">
+        <div class="ui list large">
+            <div class="item">
+                <div class="header">Kategorie
+                    <hr>
+                </div>
+                <div class="ui list">
+                    <div class="item">
+                        Name:
+                        <i class="checkmark green icon" id="categoryNameSettingButton" style="float:right" onclick="onSaveCategorySetting(event)"></i>
+                        <input id="categoryNameSetting" onkeydown="onCategoryNameWillChange(event)" onfocus="onFocusCategorySetting(event)" onblur="onBlurCategorySetting(event)"/>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <!--div class="item">
+                <div class="header">Materialien
+                    <hr>
+                </div>
+                <div class="ui list">
+                    <div class="item"></div>
+                    <br>
+                </div>
+            </div-->
+        </div>
+    </div>
+</div>

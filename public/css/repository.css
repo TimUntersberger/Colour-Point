@@ -1,0 +1,53 @@
+pre{
+    padding: 0;
+    margin: 0;
+    font: inherit;
+}
+.addCategory:hover {
+    cursor: pointer;
+}
+.categoriesManager {
+    position: fixed;
+    margin-top: 0 !important;
+    margin-left: 20px !important;
+}
+.addMaterial {
+    float: right;
+}
+.addMaterial:hover {
+    cursor: pointer;
+}
+.min-quantity {
+    /*display: none !important;*/
+}
+.removeMaterial:hover {
+    cursor: pointer;
+}
+.removeMaterial {
+    float: right;
+    background-color: white;
+}
+.addQuantity {
+    float: right;
+}
+.addQuantity:hover {
+    cursor: pointer;
+}
+.subtractQuantity {
+    float: right;
+}
+.subtractQuantity:hover {
+    cursor: pointer;
+}
+#categoryNameSetting {
+    float: right !important;
+    border: none;
+    border-bottom: solid black 0.5px;
+    margin-right: 10px;
+}
+#categoryNameSettingButton:hover{
+    cursor:pointer;
+}
+.materialName{
+    padding-left: 5px !important;
+}
