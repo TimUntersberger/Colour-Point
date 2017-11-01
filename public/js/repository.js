@@ -1,5 +1,5 @@
 $(() => {
-    getCategories(({categories}) => {
+    getCategories(({ categories }) => {
         categories.forEach(category => {
             addCategory(category.name, category.id);
         });
@@ -13,53 +13,72 @@ $(() => {
     });
     socket.on("update categories", category => {
         if (category.name) {
-            $(".item.category.active .categoryName").text(category.name);
+            $("#" + category.id + ".item.category .categoryName").text(
+                category.name
+            );
             const settingsModal = $("#settingsModal");
-            if (settingsModal.modal("is visible") && settingsModal.currentCategory === category.id) {
+            if (
+                settingsModal.modal("is visible") &&
+                settingsModal.currentCategory == category.id
+            ) {
                 $("#categoryNameSetting").val(category.name);
             }
         }
-    })
+    });
     socket.on("new material", material => {
-        if ($(".item.category.active").attr("id") == material.category_id)
+        if ($(".item.category.active").attr("id") == material.categorie_id)
             addMaterial(material);
     });
     socket.on("delete material", material => {
-        if ($(".item.category.active").attr("id") == material.category_id)
+        if ($(".item.category.active").attr("id") == material.categorie_id)
             deleteMaterial(material.id);
     });
     socket.on("update material", material => {
-        if ($(".item.category.active").attr("id") == material.category_id) {
+        if ($(".item.category.active").attr("id") == material.categorie_id) {
             if (material.quantity) {
                 const $quantity = $(
-                    "#"+material.id+".material .materialQuantity .quantityValue"
+                    "#" +
+                        material.id +
+                        ".material .materialQuantity .quantityValue"
                 );
                 $quantity.text(
                     parseInt($quantity.text()) + parseInt(material.quantity)
                 );
-                if($quantity.text() > $("#"+material.id+".material .materialMinQuantity").text())
-                    $("#"+material.id+".material").removeClass("negative");
-                else
-                    $("#"+material.id+".material").addClass("negative");
+                if (
+                    $quantity.text() >=
+                    $(
+                        "#" + material.id + ".material .materialMinQuantity"
+                    ).text()
+                )
+                    $("#" + material.id + ".material").removeClass("negative");
+                else $("#" + material.id + ".material").addClass("negative");
             }
             if (material.name)
-                $("#"+material.id+".material .materialName").text(
+                $("#" + material.id + ".material .materialName").text(
                     material.name
                 );
 
             if (material.format)
-                $("#"+material.id+".material .materialFormat").text(
+                $("#" + material.id + ".material .materialFormat").text(
                     material.format
                 );
 
-            if (material.min_quantity) {
-                $("#"+material.id+".material .materialMinQuantity").text(
-                    material.min_quantity
+            if (material.minquantity) {
+                $("#" + material.id + ".material .materialMinQuantity").text(
+                    material.minquantity
                 );
-                if($("#"+material.id+".material .materialQuantity .quantityValue").text() < $("#"+material.id+".material .materialMinQuantity").text())
-                    $("#"+material.id+".material").addClass("negative");
-                else
-                    $("#"+material.id+".material").removeClass("negative");
+                if (
+                    $(
+                        "#" +
+                            material.id +
+                            ".material .materialQuantity .quantityValue"
+                    ).text() <
+                    $(
+                        "#" + material.id + ".material .materialMinQuantity"
+                    ).text()
+                )
+                    $("#" + material.id + ".material").addClass("negative");
+                else $("#" + material.id + ".material").removeClass("negative");
             }
         }
     });
@@ -84,11 +103,11 @@ const onDeleteMaterial = event => {
             onApprove: () => {
                 $.ajax({
                     url:
-                    "/api/materials/" +
-                    event.target.parentNode.parentNode.id,
+                        "/api/materials/" +
+                        event.target.parentNode.parentNode.id,
                     method: "delete",
                     data: {
-                        category_id: $(".item.category.active").attr("id")
+                        categorie_id: $(".item.category.active").attr("id")
                     }
                 });
             }
@@ -103,7 +122,7 @@ const updateQuantity = val => {
         data: {
             quantity: val,
             id: id,
-            category_id: $(".item.category.active").attr("id")
+            categorie_id: $(".item.category.active").attr("id")
         }
     });
 };
@@ -145,11 +164,10 @@ const addMaterial = material => {
         .clone()
         .removeClass("template")
         .attr("id", material.id);
-    if(material.quantity < material.min_quantity)
-        $row.addClass("negative")
+    if (material.quantity < material.minquantity) $row.addClass("negative");
     $row.find(".materialName").text(material.name);
     $row.find(".materialFormat").text(material.format);
-    $row.find(".materialMinQuantity").text(material.min_quantity);
+    $row.find(".materialMinQuantity").text(material.minquantity);
     $row.find(".materialQuantity .quantityValue").text(material.quantity);
     $row.find(".materialQuantity .materialMinus").popup({
         popup: $(".ui.popup.subtractQuantityPopup"),
@@ -175,26 +193,29 @@ const onAddMaterial = event => {
         }
     });
 };
-const onFocusCategorySetting = event => event.target.initialValue = event.target.value;
+const onFocusCategorySetting = event =>
+    (event.target.initialValue = event.target.value);
 
 const onSaveCategorySetting = () => {
     const categoryNameSetting = $("#categoryNameSetting");
     if (categoryNameSetting[0].initialValue !== categoryNameSetting.val()) {
         $.ajax({
-            url: "/api/categories/" + $(".item.category.active").attr("id"),
+            url: "/api/categories/" + $("#settingsModal")[0].currentCategory,
             method: "patch",
             data: {
                 name: categoryNameSetting.val()
             }
-        })
+        });
     }
-}
+    $("#settingsModal").modal("hide");
+};
 const onMaterialMinQuantityWillChange = event => {
-    if(event.keyCode == 13){
+    if (event.keyCode == 13) {
         event.preventDefault();
-        if(!isNaN(event.target.innerText) && event.target.innerText >= 0) event.target.blur()
+        if (!isNaN(event.target.innerText) && event.target.innerText >= 0)
+            event.target.blur();
     }
-}
+};
 const handleCategorySelection = category => {
     $.ajax({
         url: "/api/materials/",
@@ -202,7 +223,7 @@ const handleCategorySelection = category => {
         data: {
             id: category.id
         },
-        success: ({materials}) => {
+        success: ({ materials }) => {
             $(category)
                 .addClass("active")
                 .siblings()
@@ -217,8 +238,14 @@ const handleCategorySelection = category => {
 
 const onBlurMaterial = event => {
     toggleContentEditable(event);
-    const parentNode = event.target.nodeName === "PRE"? event.target.parentNode.parentNode : event.target.parentNode;
-    $(parentNode).addClass("used").siblings().removeClass("used");
+    const parentNode =
+        event.target.nodeName === "PRE"
+            ? event.target.parentNode.parentNode
+            : event.target.parentNode;
+    $(parentNode)
+        .addClass("used")
+        .siblings()
+        .removeClass("used");
     const id = parentNode.id;
     const props = {};
     if (event.target.classList.contains("materialName"))
@@ -232,7 +259,7 @@ const onBlurMaterial = event => {
                 ? "Format"
                 : event.target.innerText;
     if (event.target.classList.contains("materialMinQuantity"))
-        props.min_quantity =
+        props.minquantity =
             event.target.innerText == "\n" || event.target.innerText == ""
                 ? 0
                 : event.target.innerText;
@@ -241,7 +268,7 @@ const onBlurMaterial = event => {
         method: "patch",
         data: {
             id: id,
-            category_id: $(".category.active").attr("id"),
+            categorie_id: $(".category.active").attr("id"),
             ...props
         }
     });
@@ -255,9 +282,7 @@ const onCategorySelected = event => {
 const onCategoryMenuItemSelected = event => {
     handleCategorySelection(event.target);
 };
-const onBlurCategorySetting = event => {
-    event.target.value = event.target.initialValue;
-}
+const onBlurCategorySetting = event => {};
 const onRemoveCategory = event => {
     $("#deleteConfirm")
         .modal({
@@ -279,9 +304,7 @@ const toggleContentEditable = event => {
         window.getSelection().selectAllChildren(ele);
     }
 };
-const onShowSettings = () => {
-    $("#settingsModal").currentCategory = $(".item.category.active").attr("id");
-};
+const onShowSettings = () => {};
 
 const onConfigureCategory = event => {
     const category = event.target.parentNode;
@@ -293,13 +316,14 @@ const onConfigureCategory = event => {
             onShow: onShowSettings
         })
         .modal("show");
+    $("#settingsModal")[0].currentCategory = category.id;
     event.stopPropagation();
 };
 
 const onCategoryNameWillChange = event => {
     if (event.keyCode == 13) {
         event.preventDefault();
-        event.target.blur();
+        onSaveCategorySetting();
     }
 };
 const onAddCategory = event => {

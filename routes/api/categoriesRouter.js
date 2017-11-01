@@ -29,7 +29,8 @@ router
         );
     });
 
-router.route("/:id")
+router
+    .route("/:id")
     .delete((req, res) => {
         connection.query(
             "delete from categories where id=" + req.params.id,
@@ -56,8 +57,7 @@ router.route("/:id")
                     io.emit("update categories", req.body);
                     res.json({});
                 }
-            )
-    })
-
+            );
+    });
 
 export default router;

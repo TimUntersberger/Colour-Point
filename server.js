@@ -10,13 +10,13 @@ import socketIo from "socket.io";
 const app = express();
 
 app.engine(
-  "hbs",
-  hbs({
-    extname: "hbs",
-    defaultLayout: "layout",
-    layoutsDir: path.join(__dirname, "views/layouts"),
-    partialsDir: path.join(__dirname, "views/partials")
-  })
+    "hbs",
+    hbs({
+        extname: "hbs",
+        defaultLayout: "layout",
+        layoutsDir: path.join(__dirname, "views/layouts"),
+        partialsDir: path.join(__dirname, "views/partials")
+    })
 );
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -25,10 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
 
 global.connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "teamtengu1",
-  database: "colourandpoint"
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "Colour&Point_development"
 });
 
 global.connection.connect();
