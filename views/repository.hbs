@@ -1,7 +1,4 @@
-{{> settingsModal}}
-{{> deleteConfirm}}
-{{> addQuantityPopup }}
-{{> subtractQuantityPopup }}
+{{> settingsModal}} {{> deleteConfirm}} {{> addQuantityPopup }} {{> subtractQuantityPopup }}
 <div class="ui vertical menu categoriesManager large">
     <div class="item">
         <div class="header">
@@ -16,17 +13,17 @@
 <div class="ui container">
     <table class="ui table very basic celled ">
         <thead>
-        <tr>
-            <th class="materialName">Name</th>
-            <th>Format</th>
-            <th>Mindest Menge</th>
-            <th>Menge
-                <i class="addMaterial plus icon" onClick="onAddMaterial(event)"></i>
-            </th>
-        </tr>
+            <tr>
+                <th class="materialName sortOption" onclick="sortMaterials('materialName')">Name</th>
+                <th class="materialFormat sortOption" onclick="sortMaterials('materialFormat')">Format</th>
+                <th>Mindest Menge</th>
+                <th>Menge
+                    <i class="addMaterial plus icon" onClick="onAddMaterial(event)"></i>
+                </th>
+            </tr>
         </thead>
         <tbody id="materials">
-        {{> materialTemplate }}
+            {{> materialTemplate }}
         </tbody>
     </table>
 </div>
