@@ -83,6 +83,23 @@ $(() => {
         }
     });
 });
+const sortMaterials = column => {
+    if ($(".category.active").length == 0) return;
+    const columns = {
+        materialName: 0,
+        materialFormat: 1
+    };
+    const columnIndex = columns[column];
+    const materials = $("#materials");
+    const rows = materials.children("tr").not(".template");
+    rows.sort((x, y) => {
+        return x.children[columnIndex].children[0].innerText.localeCompare(
+            y.children[columnIndex].children[0].innerText
+        );
+    });
+    materials.html("");
+    rows.each((i, ele) => materials.append(ele));
+};
 const deleteMaterial = id => {
     $("#materials #" + id).remove();
 };
