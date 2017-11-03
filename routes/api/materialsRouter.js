@@ -6,8 +6,10 @@ router
     .route("/")
     .get((req, res) => {
         connection.query(
-            "SELECT m.id, m.name, m.format, m.quantity, m.minquantity FROM categories c INNER JOIN products m ON c.id = m.categorie_id WHERE m.categorie_id=" +
-                req.query.id,
+            req.query.id != 0
+                ? "SELECT m.id, m.name, m.format, m.quantity, m.minquantity FROM categories c INNER JOIN products m ON c.id = m.categorie_id WHERE m.categorie_id=" +
+                  req.query.id
+                : "SELECT * FROM products",
             (err, result) => {
                 if (err) console.log(err);
                 res.send({

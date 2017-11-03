@@ -17,9 +17,6 @@ pre {
 .addMaterial:hover {
     cursor: pointer;
 }
-.min-quantity {
-    /*display: none !important;*/
-}
 .removeMaterial:hover {
     cursor: pointer;
 }

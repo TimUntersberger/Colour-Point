@@ -1,1 +1,17 @@
-<h1>Main</h1>
+<div class="ui container">
+    <table class="ui table very basic celled ">
+        <thead>
+            <tr>
+                <th class="materialName ">Name</th>
+                <th class="materialFormat">Format</th>
+                <th>Mindest Menge</th>
+                <th>Menge</th>
+            </tr>
+        </thead>
+        <tbody id="materials">
+            {{> materialTemplate }}
+        </tbody>
+    </table>
+</div>
+<script src="/js/main.js"></script>
+<link rel="stylesheet" href="/css/main.css">
