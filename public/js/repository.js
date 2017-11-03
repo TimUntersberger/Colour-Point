@@ -33,55 +33,6 @@ $(() => {
         if ($(".item.category.active").attr("id") == material.categorie_id)
             deleteMaterial(material.id);
     });
-    socket.on("update material", material => {
-        if ($(".item.category.active").attr("id") == material.categorie_id) {
-            if (material.quantity) {
-                const $quantity = $(
-                    "#" +
-                        material.id +
-                        ".material .materialQuantity .quantityValue"
-                );
-                $quantity.text(
-                    parseInt($quantity.text()) + parseInt(material.quantity)
-                );
-                if (
-                    $quantity.text() >=
-                    $(
-                        "#" + material.id + ".material .materialMinQuantity"
-                    ).text()
-                )
-                    $("#" + material.id + ".material").removeClass("negative");
-                else $("#" + material.id + ".material").addClass("negative");
-            }
-            if (material.name)
-                $("#" + material.id + ".material .materialName").text(
-                    material.name
-                );
-
-            if (material.format)
-                $("#" + material.id + ".material .materialFormat").text(
-                    material.format
-                );
-
-            if (material.minquantity) {
-                $("#" + material.id + ".material .materialMinQuantity").text(
-                    material.minquantity
-                );
-                if (
-                    $(
-                        "#" +
-                            material.id +
-                            ".material .materialQuantity .quantityValue"
-                    ).text() <
-                    $(
-                        "#" + material.id + ".material .materialMinQuantity"
-                    ).text()
-                )
-                    $("#" + material.id + ".material").addClass("negative");
-                else $("#" + material.id + ".material").removeClass("negative");
-            }
-        }
-    });
 });
 const sortMaterials = column => {
     if ($(".category.active").length == 0) return;
