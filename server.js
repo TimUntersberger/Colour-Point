@@ -36,4 +36,4 @@ global.connection.connect();
 const server = http.Server(app);
 global.io = socketIo(server);
 
-server.listen(80);
+server.listen(3000);
