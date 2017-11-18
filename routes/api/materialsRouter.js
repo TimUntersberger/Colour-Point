@@ -55,7 +55,7 @@ router
                 if (err) console.error(err);
                 io.emit("delete material", {
                     id: req.params.id,
-                    category_id: req.body.category_id
+                    categorie_id: req.body.categorie_id
                 });
                 res.send({});
             }

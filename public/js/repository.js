@@ -45,9 +45,8 @@ $(() => {
                 $quantity.text() >=
                 $("#" + material.id + ".material .materialMinQuantity").text()
             )
-                $("#" + material.id + ".material").removeClass('negative');
-            else
-                $("#" + material.id + ".material").addClass('negative');
+                $("#" + material.id + ".material").removeClass("negative");
+            else $("#" + material.id + ".material").addClass("negative");
         }
         if (material.name)
             $("#" + material.id + ".material .materialName").text(
@@ -71,9 +70,8 @@ $(() => {
                 ).text() >=
                 $("#" + material.id + ".material .materialMinQuantity").text()
             )
-                $("#" + material.id + ".material").removeClass('negative');
-            else
-                $("#" + material.id + ".material").addClass('negative');
+                $("#" + material.id + ".material").removeClass("negative");
+            else $("#" + material.id + ".material").addClass("negative");
         }
     });
 });
