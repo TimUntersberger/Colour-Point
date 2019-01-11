@@ -6,6 +6,7 @@ import hbs from "express-handlebars";
 import router from "./routes";
 import mysql from "mysql";
 import socketIo from "socket.io";
+import { fork } from "child-process";
 
 const app = express();
 
@@ -33,5 +34,5 @@ global.connection = mysql.createPool({
 
 const server = http.Server(app);
 global.io = socketIo(server);
-
+fork("./backup-service.js");
 server.listen(3000);
