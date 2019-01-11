@@ -33,5 +33,4 @@ global.connection = mysql.createPool({
 
 const server = http.Server(app);
 global.io = socketIo(server);
-fork("./backup-service.js");
 server.listen(3000);
