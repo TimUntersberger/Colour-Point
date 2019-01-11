@@ -6,7 +6,6 @@ import hbs from "express-handlebars";
 import router from "./routes";
 import mysql from "mysql";
 import socketIo from "socket.io";
-import { fork } from "child-process";
 
 const app = express();
 
