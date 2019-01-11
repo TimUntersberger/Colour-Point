@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "babel-node server.js",
-    "backup": "echo $(mysqldump -h 127.0.0.1 -uroot -ppassword --no-create-info 'Colour&Point_development') > ./backups/$(date +%s).sql",
-    "backup-service": "watch -n 30 'npm run backup'"
+    "backup": "echo $(mysqldump --column-statistics=0 -h 127.0.0.1 -uroot -ppassword --no-create-info 'Colour&Point_development') > ./backups/$(date +%s).sql",
+    "backup-service": "watch -n 360 'npm run backup'"
   },
   "author": "",
   "license": "ISC",
