@@ -23,13 +23,13 @@ router
             res.send({});
             return;
         }
-        const defaultValues = [0, "Name", "Format", 0, 0];
+        const defaultValues = [0, "Name", "Format", 0, 0, false];
         // transform data into value string
         const data = [...defaultValues, req.body.id]
             .map(val => "'" + val + "'")
             .join(", ");
         connection.query(
-            "insert into products(`id`,`name`,`format`,`quantity`,`minquantity`,`categorie_id`) values(" +
+            "insert into products(`id`,`name`,`format`,`quantity`,`minquantity`, in_basement,`categorie_id`) values(" +
                 data +
                 ")",
             (err, result) => {
@@ -39,6 +39,7 @@ router
                     format: defaultValues[2],
                     quantity: defaultValues[3],
                     minquantity: defaultValues[4],
+		    inBasement: defaultValues[5],
                     id: result.insertId,
                     categorie_id: req.body.id
                 });
@@ -69,6 +70,7 @@ router
             set += "minquantity=" + req.body.minquantity + " ";
         if (req.body.name) set += "name='" + req.body.name + "' ";
         if (req.body.format) set += "format='" + req.body.format + "' ";
+	if (req.body.inBasement != undefined) set +="in_basement=" + req.body.inBasement + " ";
         if (set !== "set ")
             connection.query(
                 "update products " + set + "where id=" + req.body.id,
@@ -78,6 +80,7 @@ router
                     res.json({});
                 }
             );
+	else res.end()
     });
 
 export default router;

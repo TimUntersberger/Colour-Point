@@ -57,6 +57,11 @@ $(() => {
             $("#" + material.id + ".material .materialFormat").text(
                 material.format
             );
+	console.log(material.inBasement)
+	if (material.inBasement)
+            $("#" + material.id + ".material .materialInBasement input").prop(
+		"checked", material.inBasement == "true"
+            );
 
         if (material.minquantity) {
             $("#" + material.id + ".material .materialMinQuantity").text(
@@ -135,6 +140,20 @@ const updateQuantity = val => {
         }
     });
 };
+const onInBasementChange = event => {
+    updateInBasement(event.target.parentNode.parentNode.id, event.target.checked)
+}
+const updateInBasement = (id, val) => {
+    $.ajax({
+        url: "/api/materials/" + id,
+        method: "patch",
+        data: {
+            inBasement: val,
+            id: id,
+            categorie_id: $(".item.category.active").attr("id")
+        }
+    });
+}
 const onAmountWillChange = event => {
     if (event.keyCode == 13) {
         updateQuantity(
@@ -177,6 +196,8 @@ const addMaterial = material => {
     $row.find(".materialName").text(material.name);
     $row.find(".materialFormat").text(material.format);
     $row.find(".materialMinQuantity").text(material.minquantity);
+    const temp = $row.find(".materialInBasement input")
+    temp.prop("checked", material.in_basement);
     $row.find(".materialQuantity .quantityValue").text(material.quantity);
     $row.find(".materialQuantity .materialMinus").popup({
         popup: $(".ui.popup.subtractQuantityPopup"),
